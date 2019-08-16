@@ -6,6 +6,27 @@
 #define SHFZ MT(MOD_LSFT, KC_Z)
 #define SHFS MT(MOD_RSFT, KC_SLSH)
 
+//workspace shifting keys
+#define WK1 LALT(KC_1)
+#define WK2 LALT(KC_2)
+#define WK3 LALT(KC_3)
+#define WK4 LALT(KC_4)
+#define WK5 LALT(KC_5)
+#define WK6 LALT(KC_6)
+#define WK7 LALT(KC_7)
+#define WK8 LALT(KC_8)
+#define WK9 LALT(KC_9)
+#define WK0 LALT(KC_0)
+
+//other i3 keys
+#define i3TERM  A(KC_ENT)
+#define i3LEFT  A(KC_H)
+#define i3DOWN  A(KC_J)
+#define i3UP    A(KC_K)
+#define i3RGHT  A(KC_L)
+#define i3DMENU A(KC_D)
+#define i3QUIT  A(S(KC_Q))
+
 enum preonic_layers {
   _QWERTY,
   _SYMBOLS,
@@ -68,65 +89,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Navigation
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | PGdn | PGup |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      | Left | Down |  Up  | Right|Caps  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * | alt  |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |             |     Tab     |      |      |      |      |
+ * |      |      |      |      |             |     Tab     |      |      |      |enter |
  * `-----------------------------------------------------------------------------------'
  */
 [_NAVIG] = LAYOUT_preonic_2x2u( \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9,   KC_F10 , KC_F11 , KC_F12 , \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_CAPS, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______         , KC_TAB          , _______, _______, _______, _______  \
+  _______, _______, _______, _______, _______         , KC_TAB          , _______, _______, _______, KC_ENT   \
 ),
 
 /* Gaming
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  0   |      |
+ * | Esc  |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  0   |Back  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  Q   |  W   |  E   |  R   |  T   |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |  A   |  S   |  D   |  F   |  G   |      |      |      |      |  up  |Enter |
+ * | Tab  |  A   |  S   |  D   |  F   |  G   |      |      |      |      |      |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Shift |  Z   |  X   |  C   |  V   |  B   |      |      |      | left | down |right |
+ * |Shift |  Z   |  X   |  C   |  V   |  B   |      |      |      |      |  up  |shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |     Space   |             |      |      |      |      |
+ * | ctrl |      | alt  |      |     Space   |             |      | left | down |right |
  * `-----------------------------------------------------------------------------------'
  */
 [_GAME] = LAYOUT_preonic_2x2u( \
-  KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , XXXXXXX, \
+  KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_BSPC, \
   XXXXXXX, KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  KC_TAB , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UP  , KC_ENT , \
-  KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, \
-  KC_RCTL, XXXXXXX, KC_RALT, NAVIG  , KC_SPC          , XXXXXXX         , SYMBOLS, XXXXXXX, XXXXXXX, XXXXXXX  \
+  KC_TAB , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT , \
+  KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UP  , KC_RSFT, \
+  KC_RCTL, XXXXXXX, KC_RALT, NAVIG  , KC_SPC          , XXXXXXX         , SYMBOLS, KC_LEFT, KC_DOWN, KC_RGHT  \
 ),
 
-/* Adjust (Lower + Raise)
+/* Adjust (Lower + Raise) and i3
  * ,-----------------------------------------------------------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
+ * | work1|work2 | work3| work4|work5 |AudOn |AudOff|work6 |work7 |work8 |work9 |work0 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|AudOff|AGnorm|AGswap|Qwerty|Gaming|      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
+ * |      |      |      |      |      |Qwerty|Game  |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      | dmenu|      |      |      |      |i3 lef|i3 dwn|i3 up |i3 rgt|term  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | shift|      |      |      |      |      |      |      |      |      |      |shift |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Reset|Debug |MusMod|      |MusOn        |MusOff       |      |Voice-|Voice+|quit  |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_2x2u( \
-  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9,   KC_F10 , KC_F11 , KC_F12 , \
-  _______, RESET  , DEBUG  , _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL , \
-  _______, _______, MU_MOD , AU_ON  , AU_OFF , AG_NORM, AG_SWAP, QWERTY , GAME   , _______, _______, _______, \
-  _______, MUV_DE , MUV_IN , MU_ON  , MU_OFF , MI_ON  , MI_OFF , _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______         , _______         , _______, _______, _______, _______  \
+  WK1    , WK2    , WK3    , WK4    , WK5    , AU_ON  , AU_OFF , WK6    , WK7    , WK8    , WK9    , WK0    , \
+  A(KC_Q), A(KC_W), A(KC_E), A(KC_R), A(KC_T), QWERTY , GAME   , A(KC_Y), A(KC_U), A(KC_I), A(KC_O), A(KC_P), \
+  A(KC_A), A(KC_S), i3DMENU, A(KC_F), A(KC_G), _______, _______, i3LEFT , i3DOWN , i3UP   , i3RGHT , i3TERM , \
+  KC_LSFT, A(KC_X), A(KC_C), A(KC_V), A(KC_B), _______, _______, A(KC_N), A(KC_M), _______, _______, KC_RSFT, \
+  RESET  , DEBUG  , MU_MOD , _______, MU_ON           , MU_OFF          , _______, MUV_DE , MUV_IN , i3QUIT   \
 )
 
 
