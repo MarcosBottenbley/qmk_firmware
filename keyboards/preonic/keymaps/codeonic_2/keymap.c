@@ -160,15 +160,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise) and i3
  * ,-----------------------------------------------------------------------------------.
- * | work1|work2 | work3| work4|work5 |AudOn |AudOff|work6 |work7 |work8 |work9 |work0 |
+ * | NEWVD|      |      |      |      |AudOn |AudOff|      |      |      |      |CLOSEV|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |Qwerty|Game  |      |      |      |      |      |
+ * |CLOSE |      |      |RUN   |      |Qwerty|Game  |LEFT  |DOWN  |UP    |RIGHT |SCREEN|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      | dmenu|      |      |LINUX |WINDOW|i3 lef|i3 dwn|i3 up |i3 rgt|term  |
+ * |VLEFT |      |GUI   |FILE  |      |      |      |WLEFT |DISPLA|TAB   |WRIGHT|VRGHT |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | shift|      |      |      |      |      |      |      |      |      |      |shift |
+ * |      |XMENU |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Reset|Debug |MusMod|      |MusOn        |MusOff       |      |Voice-|Voice+|quit  |
+ * | Reset|Debug |MusMod|      |MusOn        |MusOff       |      |Voice-|Voice+|      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST_WIN] = LAYOUT_preonic_2x2u( \
