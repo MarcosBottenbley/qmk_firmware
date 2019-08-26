@@ -69,3 +69,12 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
+*.dll
+*.exe
+*.pdf
+*.html
+*.sys
+*.inf
+*.cat
+util/dfu-programmer/dfu-prog-usb-1.2.2/COPYING_GPL.txt
+util/dfu-util-0.9-win64/README.txt
