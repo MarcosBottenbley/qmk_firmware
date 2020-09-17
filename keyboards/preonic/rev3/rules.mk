@@ -5,7 +5,7 @@ MCU = STM32F303
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = full # Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes      # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -17,7 +17,7 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = yes           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 WS2812_DRIVER = bitbang
 API_SYSEX_ENABLE = no
 
@@ -27,7 +27,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
-DIP_SWITCH_ENABLE = yes
+DIP_SWITCH_ENABLE = no
 
 LAYOUTS = ortho_5x12
 
