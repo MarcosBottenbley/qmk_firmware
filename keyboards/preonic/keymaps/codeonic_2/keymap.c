@@ -50,13 +50,24 @@
 #define MOVEWD G(KC_DOWN)
 #define MOVEWU G(KC_UP)
 
+//mac keys
+#define SEARCH  G(KC_SPACE)
+#define MACQUIT A(G(KC_ESC))
+#define FULLSCR C(G(KC_F))
+#define FINDER  G(KC_N)
+#define MACRGHT C(KC_RIGHT)
+#define MACLEFT C(KC_LEFT)
+#define MACUP   C(KC_UP)
+#define MACDOWN C(KC_DOWN)
+
 enum preonic_layers {
   _QWERTY,
   _SYMBOLS,
   _NAVIG,
   _GAME,
   _ADJUST_LIN,
-  _ADJUST_WIN
+  _ADJUST_WIN,
+  _ADJUST_MAC
 };
 
 enum preonic_keycodes {
@@ -65,12 +76,12 @@ enum preonic_keycodes {
   SYMBOLS,
   NAVIG,
   GAME,
-  ADJUST_LIN,
-  ADJUST_WIN
+  ADJ_LIN,
+  ADJ_WIN,
+  ADJ_MAC
 };
 
-int _ADJUST = _ADJUST_WIN;
-
+int current_adjust = ADJ_LIN;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -88,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_2x2u( \
-  KC_1   , KC_2   , KC_3   , KC_4 , KC_5   , KC_DEL ,  KC_DEL ,  KC_6  , KC_7   , KC_8,    KC_9   , KC_0   , \
-  KC_Q   , KC_W   , KC_E   , KC_R , KC_T   , KC_LBRC,  KC_RBRC,  KC_Y  , KC_U   , KC_I,    KC_O   , KC_P   , \
-  KC_A   , KC_S   , KC_D   , KC_F , KC_G   , KC_LPRN,  KC_RPRN,  KC_H  , KC_J   , KC_K,    KC_L   , KC_SCLN, \
-  SHFZ   , KC_X   , KC_C   , KC_V , KC_B   , KC_LCBR,  KC_RCBR,  KC_N  , KC_M   , KC_COMM, KC_DOT , SHFS   , \
-  KC_LCTL, KC_LGUI, KC_LALT, NAVIG,      KC_BSPC    ,       KC_SPC     , SYMBOLS, KC_VOLD, KC_VOLU, KC_ESC   \
+  KC_1   , KC_2   , KC_3   , KC_4      , KC_5   , KC_DEL ,  KC_DEL ,  KC_6  , KC_7        , KC_8,    KC_9   , KC_0   , \
+  KC_Q   , KC_W   , KC_E   , KC_R      , KC_T   , KC_LBRC,  KC_RBRC,  KC_Y  , KC_U        , KC_I,    KC_O   , KC_P   , \
+  KC_A   , KC_S   , KC_D   , KC_F      , KC_G   , KC_LPRN,  KC_RPRN,  KC_H  , KC_J        , KC_K,    KC_L   , KC_SCLN, \
+  SHFZ   , KC_X   , KC_C   , KC_V      , KC_B   , KC_LCBR,  KC_RCBR,  KC_N  , KC_M        , KC_COMM, KC_DOT , SHFS   , \
+  KC_LCTL, KC_LGUI, KC_LALT, MO(_NAVIG), KC_BSPC         ,  KC_SPC          , MO(_SYMBOLS), KC_VOLD, KC_VOLU, KC_ESC   \
 ),
 
 /* Symbols
@@ -122,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | PGdn | PGup |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      | Left | Down |  Up  | Right|Caps  |
+ * |      |      |      |      |      |LINUX |WINDOW| Left | Down |  Up  | Right|Caps  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |MAC   |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |             |     Tab     |      |      |      |enter |
  * `-----------------------------------------------------------------------------------'
@@ -132,18 +143,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAVIG] = LAYOUT_preonic_2x2u( \
   KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9,   KC_F10 , KC_F11 , KC_F12 , \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_CAPS, \
-  KC_LALT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, ADJ_LIN, ADJ_WIN, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_CAPS, \
+  KC_LALT, _______, _______, _______, _______, ADJ_MAC, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______         , KC_TAB          , _______, _______, _______, KC_ENT   \
 ),
 
-/* Adjust (Lower + Raise) and i3
+/* Adjust (Lower + Raise) i3 navigation
  * ,-----------------------------------------------------------------------------------.
  * | work1|work2 | work3| work4|work5 |AudOn |AudOff|work6 |work7 |work8 |work9 |work0 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |Qwerty|Game  |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      | dmenu|      |      |LINUX |WINDOW|i3 lef|i3 dwn|i3 up |i3 rgt|term  |
+ * |      |      | dmenu|      |      |      |      |i3 lef|i3 dwn|i3 up |i3 rgt|term  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | shift|      |      |      |      |      |      |      |      |      |      |shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -151,14 +162,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST_LIN] = LAYOUT_preonic_2x2u( \
-  WK1    , WK2    , WK3    , WK4    , WK5    , AU_ON     , AU_OFF         , WK6    , WK7    , WK8    , WK9    , WK0    , \
-  A(KC_Q), A(KC_W), A(KC_E), A(KC_R), A(KC_T), QWERTY    , GAME           , A(KC_Y), A(KC_U), A(KC_I), A(KC_O), A(KC_P), \
-  A(KC_A), A(KC_S), i3DMENU, A(KC_F), A(KC_G), _______   , _______        , i3LEFT , i3DOWN , i3UP   , i3RGHT , i3TERM , \
-  KC_LSFT, A(KC_X), A(KC_C), A(KC_V), A(KC_B), _______   , _______        , A(KC_N), A(KC_M), _______, _______, KC_RSFT, \
-  RESET  , DEBUG  , MU_MOD , _______, MU_ON              , MU_OFF         , _______, MUV_DE , MUV_IN , i3QUIT   \
+  WK1    , WK2    , WK3    , WK4    , WK5    , AU_ON          , AU_OFF         , WK6    , WK7    , WK8    , WK9    , WK0    , \
+  A(KC_Q), A(KC_W), A(KC_E), A(KC_R), A(KC_T), DF(_QWERTY)    , DF(_GAME)      , A(KC_Y), A(KC_U), A(KC_I), A(KC_O), A(KC_P), \
+  A(KC_A), A(KC_S), i3DMENU, A(KC_F), A(KC_G), _______        , _______        , i3LEFT , i3DOWN , i3UP   , i3RGHT , i3TERM , \
+  KC_LSFT, A(KC_X), A(KC_C), A(KC_V), A(KC_B), _______        , _______        , A(KC_N), A(KC_M), _______, _______, KC_RSFT, \
+  RESET  , DEBUG  , MU_MOD , _______, MU_ON                   , MU_OFF         , _______, MUV_DE , MUV_IN , i3QUIT            \
 ),
 
-/* Adjust (Lower + Raise) and i3
+/* Adjust (Lower + Raise) windows navigation
  * ,-----------------------------------------------------------------------------------.
  * | NEWVD|      |      |      |      |AudOn |AudOff|      |      |      |      |CLOSEV|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -173,10 +184,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST_WIN] = LAYOUT_preonic_2x2u( \
   WINVNEW, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX , AU_ON         , AU_OFF    , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, WINCLOS, \
-  CLOSE  , XXXXXXX, XXXXXXX, WINRUN  , XXXXXXX , QWERTY        , GAME      , MOVEWL , MOVEWD , MOVEWU , MOVEWR , SCREEN , \
-  WINLEFT, XXXXXXX, KC_LGUI, WINFIL  , XXXXXXX, _______        , _______   , WMLEFT , WINDIS , WINTAB , WMRGHT , WINRGHT, \
+  CLOSE  , XXXXXXX, XXXXXXX, WINRUN  , XXXXXXX , DF(_QWERTY)   , DF(_GAME) , MOVEWL , MOVEWD , MOVEWU , MOVEWR , SCREEN , \
+  WINLEFT, XXXXXXX, KC_LGUI, WINFIL  , XXXXXXX , _______       , _______   , WMLEFT , WINDIS , WINTAB , WMRGHT , WINRGHT, \
   XXXXXXX, G(KC_X), XXXXXXX, XXXXXXX , XXXXXXX , _______       , _______   , WINLOC , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  RESET  , DEBUG  , MU_MOD , _______ , MU_ON                   , MU_OFF    , _______, MUV_DE , MUV_IN , _______\
+  RESET  , DEBUG  , MU_MOD , _______ , MU_ON                   , MU_OFF    , _______, MUV_DE , MUV_IN , _______           \
+),
+
+/* Adjust (Lower + Raise) mac navigation
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |AudOn |AudOff|      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |Qwerty|Game  |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |SEARCH|FSCREE|      |      |      |LEFT  |DOWN  |UP    |RIGHT |FINDER|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Reset|Debug |MusMod|      |MusOn        |MusOff       |      |Voice-|Voice+|QUIT  |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_ADJUST_MAC] = LAYOUT_preonic_2x2u( \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX , AU_ON         , AU_OFF    , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX , DF(_QWERTY)   , DF(_GAME) , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, SEARCH , FULLSCR , XXXXXXX , _______       , _______   , MACLEFT, MACDOWN, MACUP  , MACRGHT, FINDER , \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX , _______       , _______   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  RESET  , DEBUG  , MU_MOD , _______ , MU_ON                   , MU_OFF    , _______, MUV_DE , MUV_IN , MACQUIT           \
 ),
 
 /* Gaming
@@ -202,46 +234,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+uint32_t layer_state_set_user(uint32_t state) {
+
+    if (current_adjust == ADJ_LIN)
+    {
+        state = update_tri_layer_state(state, _SYMBOLS, _NAVIG, _ADJUST_LIN);
+    }
+    else if (current_adjust == ADJ_WIN)
+    {
+        state = update_tri_layer_state(state, _SYMBOLS, _NAVIG, _ADJUST_WIN);
+    }
+    else if (current_adjust == ADJ_MAC)
+    {
+        state = update_tri_layer_state(state, _SYMBOLS, _NAVIG, _ADJUST_MAC);
+    }
+    return state;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode)
     {
-        case QWERTY:
-            if (record->event.pressed)
-            {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-            break;
-        case GAME:
+        case ADJ_LIN:
             if (record-> event.pressed)
-            {
-                set_single_persistent_default_layer(_GAME);
-            }
-            return false;
-            break;
-        case SYMBOLS:
-            if (record->event.pressed)
-            {
-                layer_on(_SYMBOLS);
-                update_tri_layer(_SYMBOLS, _NAVIG, _ADJUST);
-            }
+            { }
             else
             {
-                layer_off(_SYMBOLS);
-                update_tri_layer(_SYMBOLS, _NAVIG, _ADJUST);
+                current_adjust = ADJ_LIN;
             }
-            return false;
             break;
-        case NAVIG:
-            if (record->event.pressed)
+        case ADJ_WIN:
+            if (record-> event.pressed)
+            { }
+            else
             {
-                layer_on(_NAVIG);
-                update_tri_layer(_SYMBOLS, _NAVIG, _ADJUST);
-            } else {
-                layer_off(_NAVIG);
-                update_tri_layer(_SYMBOLS, _NAVIG, _ADJUST);
+                current_adjust = ADJ_WIN;
             }
-            return false;
+            break;
+        case ADJ_MAC:
+            if (record-> event.pressed)
+            { }
+            else
+            {
+                current_adjust = ADJ_MAC;
+            }
             break;
     }
     return true;
@@ -252,78 +287,6 @@ uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
-
-void encoder_update(bool clockwise)
-{
-    if (muse_mode)
-    {
-        if (IS_LAYER_ON(_NAVIG))
-        {
-            if (clockwise)
-            {
-                muse_offset++;
-            }
-            else
-            {
-                muse_offset--;
-            }
-        }
-        else
-        {
-            if (clockwise)
-            {
-                muse_tempo+=1;
-            }
-            else
-            {
-                muse_tempo-=1;
-            }
-        }
-    }
-    else
-    {
-        if (clockwise)
-        {
-            register_code(KC_PGDN);
-            unregister_code(KC_PGDN);
-        }
-        else
-        {
-            register_code(KC_PGUP);
-            unregister_code(KC_PGUP);
-        }
-    }
-}
-
-void dip_update(uint8_t index, bool active)
-{
-    switch (index)
-    {
-        case 0:
-            if (active)
-            {
-                layer_on(_ADJUST);
-            }
-            else
-            {
-                layer_off(_ADJUST);
-            }
-            break;
-
-        case 1:
-            if (active)
-            {
-                muse_mode = true;
-            }
-            else
-            {
-                muse_mode = false;
-                #ifdef AUDIO_ENABLE
-                    stop_all_notes();
-                #endif
-            }
-    }
-}
 
 void matrix_scan_user(void)
 {
