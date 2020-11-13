@@ -8,6 +8,13 @@
 #endif
 
 #define MUSIC_MASK (keycode != KC_NO)
+#define RGB_DI_PIN A1
+#define RGBLED_NUM 9
+//#define RGBLIGHT_ANIMATIONS
+//#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//#define RGBLIGHT_EFFECT_SNAKE
+//#define RGBLIGHT_MODE_RAINBOW_SWIRL
+//#define RGBLIGHT_MODE_RGB_TEST
 
 /*
  * MIDI options
